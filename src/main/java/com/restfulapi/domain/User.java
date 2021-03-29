@@ -2,9 +2,15 @@ package com.restfulapi.domain;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "user")
+public class User implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
+	@Id
+	private String id;
 	private String name;
 	private String email;
 	private String born;
@@ -16,7 +22,7 @@ public class User implements Serializable{
 		
 	}
 
-	public User(String name, String email, String born, String cpf, String data_vacina, String vacina) {
+	public User(String name, String email, String born, String cpf, String data_vacina, String vacina, String id) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -24,8 +30,15 @@ public class User implements Serializable{
 		this.cpf = cpf;
 		this.vacina = vacina;
 		this.data_vacina = data_vacina;
+		this.id = id;
 	}
 	
+	public String getId() {
+		return id;
+	}
+	public void setId( String id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -82,7 +95,7 @@ public class User implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((data_vacina == null) ? 0 : data_vacina.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((vacina == null) ? 0 : vacina.hashCode());
 		return result;
 	}
@@ -101,10 +114,10 @@ public class User implements Serializable{
 				return false;
 		} else if (!data_vacina.equals(other.data_vacina))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!id.equals(other.id))
 			return false;
 		if (vacina == null) {
 			if (other.vacina != null)
